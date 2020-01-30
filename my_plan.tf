@@ -23,7 +23,8 @@ resource "packet_ssh_key" "my_tf_ssh_key" {
 
 resource "packet_device" "my_tf_server" {
   depends_on          =   [packet_ssh_key.my_tf_ssh_key]
-  hostname            =   "my-tf-server"
+  count               =   1
+  hostname            =   format("my-tf-server-%02d", count.index + 1)
   plan                =   "t1.small.x86"
   facilities          =   ["ewr1"]
   operating_system    =   "centos_7"
@@ -32,5 +33,5 @@ resource "packet_device" "my_tf_server" {
 }
 
 output "IP_Address" {
-  value = packet_device.my_tf_server.access_public_ipv4
+  value = packet_device.my_tf_server[*].access_public_ipv4
 }
