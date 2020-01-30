@@ -24,8 +24,8 @@ resource "packet_ssh_key" "my_tf_ssh_key" {
 resource "packet_device" "my_tf_server" {
   depends_on          =   [packet_ssh_key.my_tf_ssh_key]
   hostname            =   "my-tf-server"
-  plan                =   "t3.small.x86"
-  facilities          =   ["sjc1"]
+  plan                =   "t1.small.x86"
+  facilities          =   ["ewr1"]
   operating_system    =   "centos_7"
   billing_cycle       =   "hourly"
   project_id          =   var.project_id
